@@ -1,0 +1,12 @@
+.navbar{
+    grid-area: n;
+    background-color: antiquewhite;
+
+}
+.item a {
+    color: white;
+    text-decoration: none;
+}
+.item a.activeLink{
+    color: #20bb56;
+}
