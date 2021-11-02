@@ -2,13 +2,20 @@ import React from "react";
 import n from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {PropType} from "../../App";
 
 
-function Profile() {
+
+
+
+
+
+
+function Profile(props:PropType) {
     return (
         <div className={n.profile}>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts state={props.state}/>
 
         </div>
 
