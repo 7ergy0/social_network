@@ -2,7 +2,9 @@ import React from "react";
 import n from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {PropType} from "../../../App";
-import {addPosts, updateNewPostText} from "../../../redux/state";
+import store from "../../../redux/state";
+
+
 
 
 function MyPosts(props: PropType) {
@@ -12,11 +14,11 @@ function MyPosts(props: PropType) {
 
     let newPostElement: any = React.createRef()
     let addPost = () => {
-        addPosts()
+        store.addPosts.bind(store)
     }
     let onPostChange = () => {
         let text: any = newPostElement.current.value
-        updateNewPostText(text)
+        store.updateNewPostText.bind(text)
     }
     return (
         <div className={n.postsBlock}>
