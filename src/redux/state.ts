@@ -33,19 +33,18 @@ export type RootStoreType = {
     _callSubscriber:()=>void
     _addPost:(newText:string)=>void
     _updateNewPostText:(newText:string)=>void
-    dispatch:(action:any)=>void
+    dispatch:(action:ActionsType)=>void
     getState:()=>StateType
     subscribe:(callback:()=>void)=>void
 
-
-
-
 }
-
+type ActionsType=ReturnType<typeof addPostActionCreator>|ReturnType<typeof updateNewPostTextActionCreation>
 
 const ADD_POST= "ADD-POST"
 const UPDATE_NEW_POST_TEXT= "UPDATE-NEW-POST-TEXT"
 
+export const addPostActionCreator=(text:string)=>({type:ADD_POST,newText:text})
+export const updateNewPostTextActionCreation=(text:string)=>({type:UPDATE_NEW_POST_TEXT,newText:text})
 
 let store:RootStoreType= {
     _state: {
@@ -86,7 +85,7 @@ let store:RootStoreType= {
         this._state.profilePage.newPostText = newText
         this._callSubscriber()
     },
-    dispatch(action:any){
+    dispatch(action:ActionsType){
         if(action.type===ADD_POST){
             this._addPost(action.newText)
         }else if (action.type===UPDATE_NEW_POST_TEXT){
@@ -101,8 +100,6 @@ let store:RootStoreType= {
     }
 
 }
-export const addPostActionCreator=()=>({type:ADD_POST})
 
-export const updateNewPostTextActionCreation=(text:string)=>({type:UPDATE_NEW_POST_TEXT,newText:text})
 export default store;
 

@@ -5,13 +5,13 @@ import Navbar from "./components/Navbar/Navbar";
 import Dialogs from "./components/Dialogs/Dialogs";
 import Profile from "./components/Profile/Profile";
 import {Route} from "react-router-dom";
-import {StateType} from "./redux/state";
+import {RootStoreType} from "./redux/state";
 
 
 
 
 type AppType={
-    state:StateType
+    store:RootStoreType
     dispatch:(action:any)=>void
 }
 
@@ -19,15 +19,17 @@ type AppType={
 
 
 function App(props:AppType) {
-
+const state=props.store.getState()
     return (
         <div className="app-wrapper">
             <Header/>
             <Navbar/>
 
             <div className="app-wrapper-content">
-                <Route path='/dialogs' render={()=><Dialogs state={props.state}/>}/>
-                <Route path='/profile' render={()=><Profile state={props.state} dispatch={props.dispatch}/>}/>
+                <Route path='/dialogs' render={()=><Dialogs state={state}/>}/>
+                <Route path='/profile' render={()=><Profile state={state}
+                                                            newText={state.profilePage.newPostText}
+                                                            dispatch={props.store.dispatch.bind(props.store)}/>}/>
 
             </div>
         </div>

@@ -9,6 +9,7 @@ import { StateType} from "../../redux/state";
 type ProfileType={
     state:StateType
     dispatch:(action:any)=>void
+    newText:string
 }
 
 
@@ -19,7 +20,9 @@ function Profile(props:ProfileType) {
     return (
         <div className={n.profile}>
             <ProfileInfo/>
-            <MyPosts state={props.state} dispatch={props.dispatch}/>
+            <MyPosts state={props.state}
+                     newText={props.newText}
+                     dispatch={props.dispatch}/>
 
         </div>
 

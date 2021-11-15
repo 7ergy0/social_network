@@ -7,6 +7,7 @@ import {addPostActionCreator, StateType, updateNewPostTextActionCreation} from "
 type MyPostType = {
     state: StateType
     dispatch: (action: any) => void
+    newText:string
 
 }
 
@@ -16,7 +17,7 @@ function MyPosts(props: MyPostType) {
         props.state.profilePage.postsData.map((m) => <Post key={m.id} message={m.message} likesCount={m.likesCount}/>)
 
     let addPost = () => {
-        props.dispatch(addPostActionCreator())
+        props.dispatch(addPostActionCreator(props.newText))
     }
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(updateNewPostTextActionCreation(e.currentTarget.value))
