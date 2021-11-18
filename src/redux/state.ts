@@ -1,3 +1,7 @@
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
 type MessageType = {
     id: number
     message: string
@@ -18,6 +22,7 @@ type ProfilePageType = {
 type DialogsPageType = {
     messagesData: MessageType[]
     dialogsData: DialogsType[]
+    newMessageBody: string
 }
 type SidebarType = {}
 
@@ -30,23 +35,33 @@ export type StateType = {
 
 export type RootStoreType = {
     _state: StateType
-    _callSubscriber:()=>void
-    _addPost:(newText:string)=>void
-    _updateNewPostText:(newText:string)=>void
-    dispatch:(action:ActionsType)=>void
-    getState:()=>StateType
-    subscribe:(callback:()=>void)=>void
+    _callSubscriber: () => void
+    dispatch: (action: ActionsType) => void
+    getState: () => StateType
+    subscribe: (callback: () => void) => void
 
 }
-type ActionsType=ReturnType<typeof addPostActionCreator>|ReturnType<typeof updateNewPostTextActionCreation>
+type AddPostActionType = {
+    type: "ADD-POST"
+    newText: string
+}
+type UpdateNewPostTextActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
+type SendMessageActionType = {
+    type: "SEND-MESSAGE"
+    postBody: string
+}
+type updateNewMessageBodyActionType = {
+    type: "UPDATE-NEW-MESSAGE-BODY"
+    body: string
+}
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
+    | SendMessageActionType | updateNewMessageBodyActionType
 
-const ADD_POST= "ADD-POST"
-const UPDATE_NEW_POST_TEXT= "UPDATE-NEW-POST-TEXT"
 
-export const addPostActionCreator=(text:string)=>({type:ADD_POST,newText:text})
-export const updateNewPostTextActionCreation=(text:string)=>({type:UPDATE_NEW_POST_TEXT,newText:text})
-
-let store:RootStoreType= {
+let store: RootStoreType = {
     _state: {
         profilePage: {
             postsData: [
@@ -63,6 +78,7 @@ let store:RootStoreType= {
                 {id: 3, message: "Hi!"},
                 {id: 4, message: "Hi!"}
             ],
+            newMessageBody: "",
             dialogsData: [
                 {id: 1, name: "Sergey"},
                 {id: 2, name: "Alexey"},
@@ -75,22 +91,12 @@ let store:RootStoreType= {
     _callSubscriber() {
         console.log("State change")
     },
-    _addPost(newText:string) {
-        let newPost:PostsType = {id: 5, message: this._state.profilePage.newPostText=newText, likesCount: 0};
-        this._state.profilePage.postsData.push(newPost);
-        this._state.profilePage.newPostText = ""
+    dispatch(action: ActionsType) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
         this._callSubscriber()
-    },
-    _updateNewPostText(newText:string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
-    },
-    dispatch(action:ActionsType){
-        if(action.type===ADD_POST){
-            this._addPost(action.newText)
-        }else if (action.type===UPDATE_NEW_POST_TEXT){
-            this._updateNewPostText(action.newText)
-        }
     },
     getState() {
         return this._state
