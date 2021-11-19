@@ -2,7 +2,7 @@ import React from "react";
 import n from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ActionsType, RootStoreType} from "../../redux/state";
+import {ActionsType, RootStoreType} from "../../redux/store";
 
 
 

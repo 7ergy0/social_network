@@ -15,16 +15,16 @@ type PostsType = {
     message: string
     likesCount: number
 }
-type ProfilePageType = {
+export type ProfilePageType = {
     postsData: PostsType[]
     newPostText: string
 }
-type DialogsPageType = {
+export type DialogsPageType = {
     messagesData: MessageType[]
     dialogsData: DialogsType[]
     newMessageBody: string
 }
-type SidebarType = {}
+export type SidebarType = {}
 
 
 export type StateType = {
@@ -107,5 +107,5 @@ let store: RootStoreType = {
 
 }
 
-export default store;
+
 

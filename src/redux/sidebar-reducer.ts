@@ -1,9 +1,9 @@
+import {ActionsType} from "./store";
 
 
+const initialState={}
 
-
-
-const sidebarReducer=(state:any,action:any)=>{
+const sidebarReducer=(state=initialState,action:ActionsType)=>{
 
 
 
