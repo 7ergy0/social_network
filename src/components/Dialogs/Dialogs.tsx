@@ -2,7 +2,7 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import MessageItem from "./Message/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
-import {StateType} from "../../redux/store";
+import {DialogsContainerType} from "./DialogsContainer";
 
 
 
@@ -10,14 +10,11 @@ import {StateType} from "../../redux/store";
 
 
 type DialogsType = {
-    sendMessageAction:()=>void
-    updateNewMessageBodyAction:(text:string)=>void
-    newMessage:string
-    state:StateType
+
 }
 
 
-function Dialogs(props: DialogsType) {
+function Dialogs(props:DialogsContainerType) {
 
     let dialogsElement = props.state.dialogsPage.dialogsData.map((m) => <DialogItem key={m.id} name={m.name}
                                                                                     id={m.id}/>)

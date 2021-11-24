@@ -1,4 +1,4 @@
-import {ActionsType} from "./store";
+import {ActionsType, DialogsPageType} from "./store";
 
 
 const SEND_MESSAGE = "SEND-MESSAGE"
@@ -19,16 +19,20 @@ const initialState= {
             {id: 4, name: "Olga"}
         ]
     };
-const dialogsReducer = (state=initialState, action: ActionsType)=> {
+
+const dialogsReducer = (state:DialogsPageType=initialState, action: ActionsType)=> {
     switch (action.type) {
         case SEND_MESSAGE:
             let body = {id: 5, message: state.newMessageBody }
-            state.messagesData.push(body)
-            state.newMessageBody = ""
-            return state;
+            let stateCopy={...state}
+            stateCopy.messagesData=[...state.messagesData]
+            stateCopy.messagesData.push(body)
+            stateCopy.newMessageBody = ""
+            return stateCopy;
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body
-            return state;
+            let stateCopy2={...state}
+            stateCopy2.newMessageBody = action.body
+            return stateCopy2;
         default:
             return state;
     }

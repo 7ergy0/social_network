@@ -1,19 +1,16 @@
 import React, {ChangeEvent} from "react";
 import n from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {StateType} from "../../../redux/store";
+import {MyPostsContainerType} from "./Post/MyPostsContainer";
 
 
 
 
 type MyPostType = {
-    addPostAction:()=>void
-    updateNewPostTextAction:(text:string)=>void
-    newPostText:string
-    state:StateType
+
 }
 
-function MyPosts(props: MyPostType) {
+function MyPosts(props: MyPostsContainerType) {
 
     let postsElement =
         props.state.profilePage.postsData.map((m) => <Post key={m.id} message={m.message} likesCount={m.likesCount}/>)

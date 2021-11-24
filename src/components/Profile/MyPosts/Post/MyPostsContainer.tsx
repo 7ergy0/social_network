@@ -1,38 +1,38 @@
 import React from "react";
 import MyPosts from "../MyPosts";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profile-reducer";
-import StoreContext from "../../../../StoreContext";
+import {connect} from "react-redux";
+import {RootStateType} from "../../../../redux/redux-store";
+import { Dispatch } from "@reduxjs/toolkit";
 
-
-
-type MyPostType= {
-
-
+type mapStateToPropsType={
+    newPostText:string
+    state:RootStateType
 }
-
-function MyPostsContainer(props: MyPostType) {
-
-    return (
-        <StoreContext.Consumer>
-            {
-                store=>{
-                    let state=store.getState()
-
-                    let addPostAction= () => {
-                        store.dispatch(addPostActionCreator())
-                    }
-                    let updateNewPostTextAction = (text:string) => {
-                        store.dispatch(updateNewPostTextActionCreator(text))
-                    }
-              return   <MyPosts addPostAction={addPostAction}
-                             updateNewPostTextAction={updateNewPostTextAction}
-                             newPostText={state.profilePage.newPostText}
-                             state={state}
-
-
-                    />}
-            }
-        </StoreContext.Consumer>)
+type mapDispatchToPropsType={
+    addPostAction:()=>void
+    updateNewPostTextAction:(text: string)=>void
 }
+export type MyPostsContainerType = mapStateToPropsType & mapDispatchToPropsType
 
+
+let mapStateToProps = (state:RootStateType) => {
+    return {
+        newPostText: state.profilePage.newPostText,
+        state: state
+
+    }
+}
+let mapDispatchToProps = (dispatch:Dispatch) => {
+    return {
+        addPostAction: () => {
+            dispatch(addPostActionCreator())
+        },
+        updateNewPostTextAction: (text: string) => {
+            dispatch(updateNewPostTextActionCreator(text))
+        }
+
+    }
+}
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 export default MyPostsContainer;
