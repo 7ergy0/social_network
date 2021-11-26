@@ -24,15 +24,20 @@ const dialogsReducer = (state:DialogsPageType=initialState, action: ActionsType)
     switch (action.type) {
         case SEND_MESSAGE:
             let body = {id: 5, message: state.newMessageBody }
-            let stateCopy={...state}
-            stateCopy.messagesData=[...state.messagesData]
-            stateCopy.messagesData.push(body)
-            stateCopy.newMessageBody = ""
-            return stateCopy;
+            return {...state,
+                messagesData:[...state.messagesData,body],
+            newMessageBody:""}
+            // let stateCopy={...state}
+            // stateCopy.messagesData=[...state.messagesData]
+            // stateCopy.messagesData.push(body)
+            // stateCopy.newMessageBody = ""
+            //return stateCopy;
         case UPDATE_NEW_MESSAGE_BODY:
-            let stateCopy2={...state}
-            stateCopy2.newMessageBody = action.body
-            return stateCopy2;
+            return {...state,
+                newMessageBody:action.body}
+            // let stateCopy2={...state}
+            // stateCopy2.newMessageBody = action.body
+            // return stateCopy2;
         default:
             return state;
     }
