@@ -16,13 +16,13 @@ type mapDispatchToPropsType={
 
 export type DialogsContainerType = mapStateToPropsType & mapDispatchToPropsType
 
-let mapStateToProps = (state:RootStateType) => {
+let mapStateToProps = (state:RootStateType):mapStateToPropsType => {
     return {
         newMessage: state.dialogsPage.newMessageBody,
         state:state
     }
 }
-let mapDispatchToProps = (dispatch:Dispatch) => {
+let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType => {
     return {
         sendMessageAction: () => {
             dispatch(sendMessageActionCreator())

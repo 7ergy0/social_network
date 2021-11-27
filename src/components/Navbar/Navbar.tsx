@@ -19,8 +19,12 @@ function Navbar(){
                 <a>Music</a>
             </div>
             <div className={n.item}>
+                <NavLink to={"/users"} activeClassName={n.activeLink}>Find Users</NavLink>
+            </div>
+            <div className={n.item}>
                 <a >Settings</a>
             </div>
+
         </nav>
 
 

@@ -20,7 +20,6 @@ let mapStateToProps = (state:RootStateType) => {
     return {
         newPostText: state.profilePage.newPostText,
         state: state
-
     }
 }
 let mapDispatchToProps = (dispatch:Dispatch) => {

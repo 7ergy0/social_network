@@ -1,17 +1,29 @@
 import {ActionsType} from "./store";
 
-const FOLLOW="FOLLOW"
-const UN_FOLLOW="UN-FOLLOW"
-const SET_USER="SET-USER"
+const FOLLOW = "FOLLOW"
+const UN_FOLLOW = "UN-FOLLOW"
+const SET_USER = "SET-USER"
 
-let initialState={
-        users: [
-            {id: 1, followed:false, fullName: "Sergey",status:"Im are boss",location:{city:"Borisov",country:"Belarus"} },
-            {id: 2, followed:true, fullName: "Olga",status:"Im are boss too",location:{city:"Borisov",country:"Belarus"} },
-            {id: 3, followed:false, fullName: "Alex",status:"Im are boss too",location:{city:"Borisov",country:"Belarus"} },
-        ],
-    };
-const usersReducer = (state=initialState, action: ActionsType)=> {
+export type UsersType = {
+    id: number
+    photo: string
+    followed: boolean
+    fullName: string
+    status: string
+    location: UserLocationType
+
+}
+type UserLocationType = {
+    city: string,
+    country: string
+}
+
+export type InitialStateType = typeof initialState
+
+let initialState = {
+    users: [] as UsersType[],
+};
+const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -36,14 +48,14 @@ const usersReducer = (state=initialState, action: ActionsType)=> {
         case SET_USER:
             return {
                 ...state,
-                users: [...state.users]
+                users: [...state.users,...action.users]
             }
     }
-            return state;
+    return state;
 }
 
 
-export const followAC=(userId:number)=>({type:FOLLOW,userId}) as const
-export const unfollowAC=(userId:number)=>({type:UN_FOLLOW,userId}) as const
-export const setUserAC=(users:any)=>({type:SET_USER,users}) as const
+export const followAC = (userId: number) => ({type: FOLLOW, userId}) as const
+export const unfollowAC = (userId: number) => ({type: UN_FOLLOW, userId}) as const
+export const setUserAC = (users: UsersType[]) => ({type: SET_USER, users}) as const
 export default usersReducer;
