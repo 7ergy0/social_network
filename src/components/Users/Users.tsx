@@ -1,44 +1,29 @@
 import React from "react";
 import {UsersContainerType} from "./UsersContainer";
 import s from './Users.module.css'
-import {UsersType} from "../../redux/users-reducer";
+import * as axios from "axios";
+import usersPhoto from '../../assets/images/users.png'
 
 
 
-function Users(props: UsersContainerType) {
+
+
+
+function Users(props: any) {
     if (props.users.length === 0) {
-        props.setUserAction([
-            {
-                id: 1,
-                photo: "https://get.wallhere.com/photo/face-portrait-photography-actor-smoking-hair-head-cigars-Jack-Nicholson-eye-man-beard-male-hairstyle-2560x1600-px-close-up-facial-hair-598941.jpg",
-                followed: false,
-                fullName: "Sergey",
-                status: "Im are boss",
-                location: {city: "Borisov", country: "Belarus"}
-            },
-            {
-                id: 2,
-                photo: "https://get.wallhere.com/photo/face-portrait-photography-actor-smoking-hair-head-cigars-Jack-Nicholson-eye-man-beard-male-hairstyle-2560x1600-px-close-up-facial-hair-598941.jpg",
-                followed: true,
-                fullName: "Olga",
-                status: "Im are boss too",
-                location: {city: "Borisov", country: "Belarus"}
-            },
-            {
-                id: 3,
-                photo: "https://get.wallhere.com/photo/face-portrait-photography-actor-smoking-hair-head-cigars-Jack-Nicholson-eye-man-beard-male-hairstyle-2560x1600-px-close-up-facial-hair-598941.jpg",
-                followed: false,
-                fullName: "Alex",
-                status: "Im are boss too",
-                location: {city: "Borisov", country: "Belarus"}
-            },] as UsersType[])
+
+        axios.default("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+            props.setUserAction(response.data.items)
+        })
+
+
     }
     return (
         <div>
             {
-                props.users.map(m => <div key={m.id}>
+                props.users.map((m:any )=> <div key={m.id}>
                     <span>
-                        <img src={m.photo} className={s.photos}/>
+                        <img src={m.photos.small!=null?m.photos.small:usersPhoto} className={s.photos}/>
                         <div>
                             {
                                 m.followed
@@ -50,12 +35,12 @@ function Users(props: UsersContainerType) {
                     </span>
                     <span>
                         <span>
-                        <div>{m.fullName}</div>
+                        <div>{m.name}</div>
                         <div>{m.status}</div>
                             </span>
 <span>
-    <div>{m.location.city}</div>
-    <div>{m.location.country}</div>
+    <div>{"m.location.city"}</div>
+    <div>{"m.location.country"}</div>
 </span>
 
 
