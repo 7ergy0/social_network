@@ -2,8 +2,21 @@ import React from "react";
 import {UsersContainerType} from "./UsersContainer";
 import s from './Users.module.css'
 import * as axios from "axios";
-import usersPhoto from '../../assets/images/users.png'
+import usersPhoto from '../../assets/images/userss.png'
 
+
+// interface Items{
+//     name:string
+//     id:number
+//     uniqueUrlName:null
+//     photos:Photos
+//     status:null
+//     followed:false
+// }
+// interface Photos{
+//     small:null
+//     large:null
+// }
 
 
 
@@ -12,11 +25,9 @@ import usersPhoto from '../../assets/images/users.png'
 function Users(props: any) {
     if (props.users.length === 0) {
 
-        axios.default("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+        axios.default.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
             props.setUserAction(response.data.items)
         })
-
-
     }
     return (
         <div>
