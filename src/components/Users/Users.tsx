@@ -2,7 +2,7 @@ import React from "react";
 import {UsersContainerType} from "./UsersContainer";
 import s from './Users.module.css'
 import * as axios from "axios";
-import usersPhoto from '../../assets/images/userss.png'
+import usersPhoto from '../../assets/images/users.png'
 
 
 // interface Items{
@@ -19,32 +19,35 @@ import usersPhoto from '../../assets/images/userss.png'
 // }
 
 
+class Users extends React.Component<any, any> {
 
-
-
-function Users(props: any) {
-    if (props.users.length === 0) {
-
-        axios.default.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
-            props.setUserAction(response.data.items)
+    componentDidMount() {
+        axios.default.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            this.props.setUserAction(response.data.items)
         })
     }
-    return (
-        <div>
-            {
-                props.users.map((m:any )=> <div key={m.id}>
+
+    render() {
+        return (
+            <div>
+                {
+                    this.props.users.map((m: any) => <div key={m.id}>
                     <span>
-                        <img src={m.photos.small!=null?m.photos.small:usersPhoto} className={s.photos}/>
+                        <img src={m.photos.small != null ? m.photos.small : usersPhoto} className={s.photos}/>
                         <div>
                             {
                                 m.followed
-                                    ?<button onClick={()=>{props.unfollowAction(m.id)}}>unfollow</button>
-                                    :<button onClick={()=>{props.followAction(m.id)}} >follow</button>
+                                    ? <button onClick={() => {
+                                        this.props.unfollowAction(m.id)
+                                    }}>unfollow</button>
+                                    : <button onClick={() => {
+                                        this.props.followAction(m.id)
+                                    }}>follow</button>
                             }
 
                             </div>
                     </span>
-                    <span>
+                        <span>
                         <span>
                         <div>{m.name}</div>
                         <div>{m.status}</div>
@@ -58,12 +61,15 @@ function Users(props: any) {
                     </span>
 
 
-                </div>)
-            }
-        </div>
+                    </div>)
+                }
+            </div>
 
 
-    )
+        )
+    }
+
+
 }
 
 export default Users;
