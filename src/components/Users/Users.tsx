@@ -9,8 +9,8 @@ type UsersType={
     currentPage:number
     onPageChanged:(pageNumber:number)=>void
     users:[]
-    unfollowAction:(id:number)=>void
-    followAction:(id:number)=>void
+    unfollow:(id:number)=>void
+    follow:(id:number)=>void
 }
 
 function Users(props:UsersType){
@@ -34,10 +34,10 @@ function Users(props:UsersType){
                             {
                                 m.followed
                                     ? <button onClick={() => {
-                                        props.unfollowAction(m.id)
+                                        props.unfollow(m.id)
                                     }}>unfollow</button>
                                     : <button onClick={() => {
-                                        props.followAction(m.id)
+                                        props.follow(m.id)
                                     }}>follow</button>
                             }
 
