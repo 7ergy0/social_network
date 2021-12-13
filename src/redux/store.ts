@@ -1,6 +1,13 @@
 import {addPostActionCreator, updateNewPostTextActionCreator} from "./profile-reducer";
 import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
-import {followAC, setUserAC, unfollowAC} from "./users-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUserAC,
+    toggleIsFetchingAC,
+    unfollowAC
+} from "./users-reducer";
 
 
 type MessageType = {
@@ -45,9 +52,17 @@ export type RootStoreType = {
 
 }
 
-export type ActionsType = ReturnType<typeof addPostActionCreator>| ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof sendMessageActionCreator> | ReturnType<typeof updateNewMessageBodyActionCreator>
-| ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUserAC>
+export type ActionsType =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof sendMessageActionCreator>
+    | ReturnType<typeof updateNewMessageBodyActionCreator>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
+    | ReturnType<typeof toggleIsFetchingAC>
 
 
 // let store= {
