@@ -1,4 +1,4 @@
-import {addPostActionCreator, updateNewPostTextActionCreator} from "./profile-reducer";
+import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer";
 import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
 import {
     follow,
@@ -23,7 +23,7 @@ type PostsType = {
     message: string
     likesCount: number
 }
- export type ProfilePageType = {
+export type ProfilePageType = {
     postsData: PostsType[]
     newPostText: string
 }
@@ -63,6 +63,7 @@ export type ActionsType =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 
 // let store= {

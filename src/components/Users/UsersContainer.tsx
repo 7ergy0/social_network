@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import preloader from "../../assets/images/preloader.gif"
+
 
 import {
     follow,
@@ -13,6 +13,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import * as axios from "axios";
+import Preloader from "../Preloader/Preloader";
 
 type mapStateToPropsType = {
     users: UsersType[]
@@ -56,9 +57,9 @@ class UserContainer extends React.Component<any, UsersContainerType> {
         return <>
             {
                 this.props.isFetching?
-                    <div >
-                        <img src={preloader} style={{width:"50px", height:"50px"}} />
-                    </div>
+                   <div>
+                       <Preloader/>
+                   </div>
                     :null
             }
             <Users totalUsersCount={this.props.totalUsersCount}

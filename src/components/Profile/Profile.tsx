@@ -14,10 +14,10 @@ type ProfileType={
 
 
 
-function Profile(props:ProfileType) {
+function Profile(props:any) {
     return (
         <div className={n.profile}>
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
             <MyPostsContainer/>
 
         </div>
