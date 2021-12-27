@@ -8,7 +8,7 @@ import {withRouter} from "react-router-dom";
 
 
 type mapsStateToPropsType = {
-    profile:[]
+    profile:any
 }
 
 export type ProfileContainerType=mapsStateToPropsType
@@ -26,6 +26,7 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
     }
 
     render() {
+
         return (
 
             <Profile {...this.props} profile={this.props.profile}/>
@@ -35,7 +36,7 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
 
 }
 
-let mapStateToProps = (state: RootStateType) => ({
+let mapStateToProps = (state: RootStateType):mapsStateToPropsType => ({
     profile: state.profilePage.profile
 })
 

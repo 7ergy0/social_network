@@ -8,6 +8,8 @@ import {
     toggleIsFetching,
     unfollow
 } from "./users-reducer";
+import {setAuthData} from "./authReducer";
+import store from "./redux-store";
 
 
 type MessageType = {
@@ -64,6 +66,7 @@ export type ActionsType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthData>
 
 
 // let store= {
@@ -113,5 +116,6 @@ export type ActionsType =
 // // }
 // export default store;
 
-
+// @ts-ignore
+window.store=store
 

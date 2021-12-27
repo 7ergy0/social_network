@@ -9,3 +9,10 @@
 
 
 }
+.loginBlock{
+    float: right;
+
+}
+.loginBlock a{
+    color: aliceblue;
+}
