@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type UsersType = {
@@ -41,10 +42,32 @@ function Users(props: UsersType) {
                             {
                                 m.followed
                                     ? <button onClick={() => {
-                                        props.unfollow(m.id)
+                                        axios.delete('https://social-network.samuraijs.com/api/1.0/follow/'+m.id,{
+                                            withCredentials:true,
+                                            headers:{
+                                                'API-KEY':'d63defdb-0459-40a2-9e7d-c1b6f429e0a6'
+                                            }
+                                        })
+                                            .then(response => {
+                                                if(response.data.resultCode===0){
+                                                    props.unfollow(m.id)
+                                                }
+                                        });
+
                                     }}>unfollow</button>
                                     : <button onClick={() => {
+                                axios.post('https://social-network.samuraijs.com/api/1.0/follow/'+m.id,{},{
+                                    withCredentials:true,
+                                    headers:{
+                                        'API-KEY':'d63defdb-0459-40a2-9e7d-c1b6f429e0a6'
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.data.resultCode===0) {
                                         props.follow(m.id)
+                                    }
+                            });
+
                                     }}>follow</button>
                             }
 
