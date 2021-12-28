@@ -5,7 +5,7 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUser,
-    toggleIsFetching,
+    toggleIsFetching, toggleIsFollowing,
     unfollow
 } from "./users-reducer";
 import {setAuthData} from "./authReducer";
@@ -67,6 +67,7 @@ export type ActionsType =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthData>
+    | ReturnType<typeof toggleIsFollowing>
 
 
 // let store= {
@@ -117,5 +118,5 @@ export type ActionsType =
 // export default store;
 
 // @ts-ignore
-window.store=store
+window.store = store
 
