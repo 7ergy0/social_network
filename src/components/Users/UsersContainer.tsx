@@ -12,6 +12,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 
@@ -57,6 +58,7 @@ class UserContainer extends React.Component<any, UsersContainerType> {
     }
 
     render() {
+
         return <>
             {
                 this.props.isFetching?

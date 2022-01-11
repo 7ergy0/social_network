@@ -8,6 +8,7 @@ import {RootStateType} from "../../redux/redux-store";
 type mapStateToPropsType={
     newMessage:string
     state:RootStateType
+    isAuth:boolean
 }
 type mapDispatchToPropsType={
     sendMessageAction:()=>void
@@ -19,7 +20,8 @@ export type DialogsContainerType = mapStateToPropsType & mapDispatchToPropsType
 let mapStateToProps = (state:RootStateType):mapStateToPropsType => {
     return {
         newMessage: state.dialogsPage.newMessageBody,
-        state:state
+        state:state,
+        isAuth:state.auth.isAuth
     }
 }
 let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToPropsType => {
