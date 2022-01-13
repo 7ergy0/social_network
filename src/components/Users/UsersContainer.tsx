@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 
@@ -12,7 +12,8 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
-import {NavLink, Redirect} from "react-router-dom";
+import {compose} from "@reduxjs/toolkit";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -115,6 +116,5 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
 //     }
 
 }
-const UsersContainer = connect(mapStateToProps,
-    {follow,unfollow,setCurrentPage,toggleIsFollowing,getUsers})(UserContainer);
-export default UsersContainer;
+export default compose<ComponentType>(withAuthRedirect,connect(mapStateToProps,
+    {follow,unfollow,setCurrentPage,toggleIsFollowing,getUsers}))(UserContainer);

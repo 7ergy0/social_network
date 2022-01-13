@@ -1,8 +1,10 @@
-import React from "react";
+import React, {ComponentType, ReactNode} from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {getAuthUserData} from "../../redux/authReducer";
 import {RootStateType} from "../../redux/redux-store";
+import {compose} from "@reduxjs/toolkit";
+
 
 
 type mapStateToPropsType = {
@@ -22,7 +24,7 @@ class HeaderContainer extends React.Component<any, HeaderContainerType> {
         this.props.getAuthUserData()
     }
 
-    render() {
+    render():ReactNode {
         return (
 
             <Header {...this.props}/>
@@ -35,4 +37,4 @@ let mapStateToProps = (state: RootStateType) => ({
     login: state.auth.login
 })
 
-export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer);
+export default compose<ComponentType>(connect(mapStateToProps, {getAuthUserData}))(HeaderContainer);
