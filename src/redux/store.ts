@@ -1,4 +1,9 @@
-import {addPostActionCreator, setUserProfile, updateNewPostTextActionCreator} from "./profile-reducer";
+import {
+    addPostActionCreator,
+    setStatusProfile,
+    setUserProfile,
+    updateNewPostTextActionCreator
+} from "./profile-reducer";
 import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from "./dialogs-reducer";
 import {
     follow, followSuccess,
@@ -68,6 +73,7 @@ export type ActionsType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthData>
     | ReturnType<typeof toggleIsFollowing>
+    | ReturnType<typeof setStatusProfile>
 
 
 // let store= {

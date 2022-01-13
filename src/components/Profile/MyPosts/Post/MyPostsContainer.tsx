@@ -3,7 +3,7 @@ import MyPosts from "../MyPosts";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../redux/profile-reducer";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../../redux/redux-store";
-import { Dispatch } from "@reduxjs/toolkit";
+import {compose, Dispatch} from "@reduxjs/toolkit";
 
 type mapStateToPropsType={
     newPostText:string
@@ -33,5 +33,4 @@ let mapDispatchToProps = (dispatch:Dispatch) => {
 
     }
 }
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
-export default MyPostsContainer;
+export default compose(connect(mapStateToProps, mapDispatchToProps))(MyPosts);

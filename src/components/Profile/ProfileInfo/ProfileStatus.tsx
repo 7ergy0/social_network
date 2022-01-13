@@ -1,8 +1,10 @@
-import React, {ReactNode} from "react";
+import React, {ChangeEvent, ReactNode} from "react";
+
 
 type ProfileStatusType = {
-    title: string
     editMode: boolean
+    status:string
+
 
 }
 
@@ -10,20 +12,28 @@ type ProfileStatusType = {
 class ProfileStatus extends React.Component<any, ProfileStatusType> {
     state = {
         editMode: false,
-        title: "",
+        status:this.props.status,
+
     }
 
-    activeEditMode() {
+    activeEditMode=()=> {
         this.setState({
             editMode: true
         })
-    }
 
-    activeViewMode() {
+    };
+
+    activeViewMode=()=> {
         this.setState({
             editMode: false
         })
-    }
+        this.props.updateStatusProfile(this.state.status)
+    };
+    onChangeStatus=(e:ChangeEvent<HTMLInputElement>)=>{
+        this.setState({
+            status: e.currentTarget.value
+        })
+    };
 
     render(): ReactNode {
         return (
@@ -31,8 +41,8 @@ class ProfileStatus extends React.Component<any, ProfileStatusType> {
                 {
                     this.state.editMode
 
-                        ? <input value={this.props.status} onBlur={this.activeViewMode.bind(this)} autoFocus/>
-                        : <span onDoubleClick={this.activeEditMode.bind(this)}>{this.props.status}</span>
+                        ? <input value={this.state.status} onChange={this.onChangeStatus} onBlur={this.activeViewMode} autoFocus/>
+                        : <span onDoubleClick={this.activeEditMode}>{this.props.status || "-----"}</span>
                 }
 
 

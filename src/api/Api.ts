@@ -23,6 +23,14 @@ export const profileApi={
     defaultUser(userId:number){
         return instant.get('profile/'+userId)
             .then(response=>response.data)
+    },
+    getStatus(userId:number){
+        return instant.get('profile/status/'+userId)
+            .then(response=>response.data)
+    },
+    updateStatus(status:string){
+        return instant.put('profile/status',{status:status})
+            .then(response=>response.data)
     }
 };
 export const authApi={
@@ -41,4 +49,5 @@ export const followApi={
             .then(response=>response.data)
     }
 };
+
 

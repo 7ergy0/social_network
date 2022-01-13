@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css'
 import Preloader from "../../Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
+
 type ProfileInfoType={
 
 }
@@ -20,7 +21,7 @@ function ProfileInfo(props:any) {
                 {/*</div>*/}
                 <div className={s.descriptionBlock}>
                     <img src={props.profile.photos.large} style={{width:'50px',height:'50px'}}/>
-                    <ProfileStatus status={"ksnaflkn"}/>
+                    <ProfileStatus status={props.status} updateStatusProfile={props.updateStatusProfile}/>
                 </div>
             </div>
         )

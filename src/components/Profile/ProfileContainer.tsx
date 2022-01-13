@@ -1,7 +1,11 @@
 import React, {ComponentType} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {defaultProfile} from "../../redux/profile-reducer";
+import {
+    defaultProfile,
+    getStatusProfile,
+    updateStatusProfile
+} from "../../redux/profile-reducer";
 import {RootStateType} from "../../redux/redux-store";
 import { withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
@@ -10,7 +14,8 @@ import { compose } from "@reduxjs/toolkit";
 
 
 type mapsStateToPropsType = {
-    profile?: any
+    profile: any
+    status:string
 }
 
 export type ProfileContainerType = mapsStateToPropsType
@@ -20,19 +25,21 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = 2;
+            userId = 21141;
         }
         // profileApi.defaultUser(userId).then(data=> {
         //     this.props.setUserProfile(data)
         // });
-        this.props.defaultProfile(userId)
+        this.props.defaultProfile(userId);
+        this.props.getStatusProfile(userId);
+
     }
 
     render() {
 
         return (
 
-            <Profile {...this.props} profile={this.props.profile}/>
+            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatusProfile={this.props.updateStatusProfile}/>
         )
     }
 
@@ -42,7 +49,8 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
 
 let mapStateToProps = (state: RootStateType): mapsStateToPropsType => ({
     profile: state.profilePage.profile,
+    status:state.profilePage.status
 
 });
 
-export default compose<ComponentType>(connect(mapStateToProps, {defaultProfile}),withRouter,withAuthRedirect)(ProfileContainer);
+export default compose<ComponentType>(connect(mapStateToProps, {defaultProfile,getStatusProfile,updateStatusProfile}),withRouter,withAuthRedirect)(ProfileContainer);
