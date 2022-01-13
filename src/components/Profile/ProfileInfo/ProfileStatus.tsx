@@ -10,6 +10,7 @@ type ProfileStatusType = {
 
 
 class ProfileStatus extends React.Component<any, ProfileStatusType> {
+
     state = {
         editMode: false,
         status:this.props.status,
@@ -34,8 +35,15 @@ class ProfileStatus extends React.Component<any, ProfileStatusType> {
             status: e.currentTarget.value
         })
     };
+componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<ProfileStatusType>, snapshot?: any) {
+    if(prevProps.status !== this.props.status){
+        this.setState({
+            status:this.props.status
+        });
+    }
+}
 
-    render(): ReactNode {
+    render() {
         return (
             <div>
                 {
