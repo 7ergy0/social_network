@@ -1,47 +1,48 @@
-import React, {ChangeEvent, ReactNode} from "react";
+import React, {ChangeEvent} from "react";
 
 
 type ProfileStatusType = {
     editMode: boolean
-    status:string
+    status: string
 
 
 }
 
 
 class ProfileStatus extends React.Component<any, ProfileStatusType> {
-
     state = {
         editMode: false,
-        status:this.props.status,
+        status: this.props.status,
 
     }
 
-    activeEditMode=()=> {
+    activeEditMode = () => {
         this.setState({
             editMode: true
         })
 
     };
 
-    activeViewMode=()=> {
+    activeViewMode = () => {
         this.setState({
             editMode: false
         })
         this.props.updateStatusProfile(this.state.status)
     };
-    onChangeStatus=(e:ChangeEvent<HTMLInputElement>)=>{
+    onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState({
             status: e.currentTarget.value
         })
     };
-componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<ProfileStatusType>, snapshot?: any) {
-    if(prevProps.status !== this.props.status){
-        this.setState({
-            status:this.props.status
-        });
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<ProfileStatusType>, snapshot?: any) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            });
+        }
     }
-}
+
 
     render() {
         return (
@@ -49,7 +50,8 @@ componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<ProfileStatusTy
                 {
                     this.state.editMode
 
-                        ? <input value={this.state.status} onChange={this.onChangeStatus} onBlur={this.activeViewMode} autoFocus/>
+                        ? <input value={this.state.status} onChange={this.onChangeStatus} onBlur={this.activeViewMode}
+                                 autoFocus/>
                         : <span onDoubleClick={this.activeEditMode}>{this.props.status || "-----"}</span>
                 }
 
