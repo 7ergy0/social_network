@@ -4,6 +4,8 @@ import MessageItem from "./Message/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
 import {DialogsContainerType} from "./DialogsContainer";
 import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../../common/formsControls/FormsControls";
+import {required} from "../../utils/validators/Validators";
 
 
 
@@ -48,7 +50,8 @@ export default Dialogs;
 function DialogAddMassageForm(props:any){
     return(
         <form onSubmit={props.handleSubmit}>
-            <div><Field name={'addMessageBody'} component={'textarea'}placeholder={"Enter your message"}/></div>
+            <div><Field name={'addMessageBody'} component={Textarea}
+                        placeholder={"Enter your message"} validate={required}/></div>
             <div><button>Send</button></div>
         </form>
     )

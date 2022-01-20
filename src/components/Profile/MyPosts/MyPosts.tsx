@@ -3,6 +3,8 @@ import n from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {MyPostsContainerType} from "./Post/MyPostsContainer";
 import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../../../common/formsControls/FormsControls";
+import {maxLength, required} from "../../../utils/validators/Validators";
 
 
 type MyPostType = {}
@@ -40,10 +42,11 @@ function MyPosts(props: MyPostsContainerType) {
 export default MyPosts;
 
 function PostForm(props:any) {
+    const maxLength50=maxLength(50)
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={'addMyPost'} component={'textarea'}/>
+                <Field name={'addMyPost'} component={Textarea} validate={required}/>
             </div>
             <div>
                 <button>Add post</button>

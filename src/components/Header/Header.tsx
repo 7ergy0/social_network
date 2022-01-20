@@ -9,7 +9,8 @@ function Header(props: any) {
             <img src="https://sweetcrudereports.com/wp-content/uploads/2018/07/Total-1-e1531433364798.jpg"/>
 
             <div className={n.loginBlock}>
-                {props.isAuth ? props.login
+                {props.isAuth ?
+                    <div>{props.login}-<button onClick={props.logoutProfile}>log out</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>
                 }
             </div>

@@ -37,6 +37,14 @@ export const authApi={
     getMyProfile(){
         return instant.get('auth/me')
             .then(response=>response.data)
+    },
+    login(email:string,password:string,rememberMe:boolean){
+        return instant.post('auth/login',{email,password,rememberMe})
+            .then(response=>response.data)
+    },
+    logout(){
+        return instant.delete('auth/login')
+            .then(response=>response.data)
     }
 };
 export const followApi={

@@ -20,8 +20,8 @@ const authReducer=(state:initialStateType=initialState,action:ActionsType):initi
         case "SET_AUTH_DATA":
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
+
             }
         default:
             return state
@@ -29,13 +29,30 @@ const authReducer=(state:initialStateType=initialState,action:ActionsType):initi
 }
 
 
-export const setAuthData=(userId:null,email:null,login:null)=>({type:SET_AUTH_DATA,data:{userId,email,login}}) as const
+export const setAuthData=(userId:null,email:null,login:null,isAuth:boolean)=>({type:SET_AUTH_DATA,payload:{userId,email,login,isAuth}}) as const
 
 export const getAuthUserData=()=>(dispatch:Dispatch)=>{
+
     authApi.getMyProfile().then(data => {
+        console.log(data)
         if (data.resultCode === 0) {
-            let { id,email, login} = data.data
-            dispatch(setAuthData(id,email,login));
+            dispatch(setAuthData(data.data.id,data.data.email,data.data.login,true));
+        }
+    })
+};
+export const loginProfile=(email:string,password:string,rememberMe:boolean)=>(dispatch:Dispatch)=>{
+
+    authApi.login(email,password,rememberMe).then(data=>{
+        console.log('login',data)
+        if(data.resultCode === 0){
+           dispatch<any>(getAuthUserData())
+        }
+    })
+}
+export const logoutProfile=()=>(dispatch:Dispatch)=>{
+    authApi.logout().then(data=>{
+        if(data.resultCode === 0){
+           dispatch(setAuthData(null,null,null,false))
         }
     })
 }
