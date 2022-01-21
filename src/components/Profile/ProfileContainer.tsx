@@ -16,6 +16,8 @@ import { compose } from "@reduxjs/toolkit";
 type mapsStateToPropsType = {
     profile: any
     status:string
+    authUserId:null
+    isAuth:boolean
 }
 
 export type ProfileContainerType = mapsStateToPropsType
@@ -23,9 +25,9 @@ export type ProfileContainerType = mapsStateToPropsType
 class ProfileContainer extends React.Component<any, ProfileContainerType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 21141;
+            userId = this.props.authUserId;
         }
         // profileApi.defaultUser(userId).then(data=> {
         //     this.props.setUserProfile(data)
@@ -39,7 +41,8 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
 
         return (
 
-            <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatusProfile={this.props.updateStatusProfile}/>
+            <Profile {...this.props} profile={this.props.profile}
+                     status={this.props.status} updateStatusProfile={this.props.updateStatusProfile}/>
         )
     }
 
@@ -49,7 +52,9 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
 
 let mapStateToProps = (state: RootStateType): mapsStateToPropsType => ({
     profile: state.profilePage.profile,
-    status:state.profilePage.status
+    status:state.profilePage.status,
+    authUserId: state.auth.userId,
+    isAuth:state.auth.isAuth
 
 });
 

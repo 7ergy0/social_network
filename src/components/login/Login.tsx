@@ -4,7 +4,7 @@ import {Input} from "../../common/formsControls/FormsControls";
 import {required} from "../../utils/validators/Validators";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
-
+import s from '../../common/formsControls/FormsControls.module.css'
 import {RootStateType} from "../../redux/redux-store";
 import {compose} from "@reduxjs/toolkit";
 import {loginProfile} from "../../redux/authReducer";
@@ -29,6 +29,11 @@ function LoginForm(props:InjectedFormProps<LoginFormType>){
             <div>
                 <Field type={'checkbox'} name={'rememberMe'} component={Input}/>remember me
             </div>
+            {
+                props.error && <div className={s.formError}>
+                    {props.error}
+                </div>
+            }
             <div>
                 <button>Login</button>
             </div>
