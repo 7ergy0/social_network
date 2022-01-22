@@ -1,9 +1,9 @@
 import {
-    addPostActionCreator,
+    addPostActionCreator, setPhotoProfile,
     setStatusProfile,
     setUserProfile,
 } from "./profile-reducer";
-import {sendMessageActionCreator, } from "./dialogs-reducer";
+import {sendMessageActionCreator,} from "./dialogs-reducer";
 import {
     followSuccess,
     setCurrentPage,
@@ -12,8 +12,9 @@ import {
     toggleIsFetching, toggleIsFollowing,
     unfollowSuccess
 } from "./users-reducer";
-import {setAuthData} from "./authReducer";
+import {setAuthData} from "./auth-Reducer";
 import store from "./redux-store";
+import {initializedSuccess} from "./app-reducer";
 
 
 type MessageType = {
@@ -71,6 +72,8 @@ export type ActionsType =
     | ReturnType<typeof setAuthData>
     | ReturnType<typeof toggleIsFollowing>
     | ReturnType<typeof setStatusProfile>
+    | ReturnType<typeof initializedSuccess>
+    | ReturnType<typeof setPhotoProfile>
 
 
 // let store= {

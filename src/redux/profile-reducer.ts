@@ -6,6 +6,7 @@ const ADD_POST = "ADD-POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const SET_USER_PROFILE="SET-USER-PROFILE"
 const SET_STATUS_PROFILE="SET-STATUS-PROFILE"
+const SET_PHOTO_PROFILE="SET-PHOTO-PROFILE"
 
 
 let initialState={
@@ -15,7 +16,8 @@ let initialState={
             {id: 3, message: "How are you?", likesCount: 32}
         ],
     profile:null,
-    status:""
+    status:"",
+    image:null
     };
 export type initialStateType=typeof initialState
 
@@ -47,6 +49,9 @@ const profileReducer = (state:initialStateType=initialState, action: ActionsType
         case SET_STATUS_PROFILE:
             return {...state,
             status: action.status};
+        case "SET-PHOTO-PROFILE":
+            return {...state,
+            image:action.image}
 
         default:
             return state
@@ -58,6 +63,7 @@ export const addPostActionCreator = (addMyPost:string) =>({type: ADD_POST,addMyP
 //export const updateNewPostTextActionCreator = (text: string)=>({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
 export const setUserProfile=(profile:null)=>({type:SET_USER_PROFILE,profile}) as const
 export const setStatusProfile=(status:string)=>({type:SET_STATUS_PROFILE,status}) as const
+export const setPhotoProfile=(image:any)=>({type:SET_PHOTO_PROFILE,image}) as const
 
 
 export const defaultProfile=(userId:number)=>(dispatch:Dispatch)=>{
@@ -76,6 +82,14 @@ export const updateStatusProfile=(status:string)=>(dispatch:Dispatch)=>{
             dispatch(setStatusProfile(status))
         }
     })
-}
+};
+export const getPhotoProfile=(image:any)=>(dispatch:Dispatch)=>{
+    profileApi.setPhoto(image).then(data=>{
+        if( data.data.resultCode===0 ){
+            dispatch(setPhotoProfile(image))
+        }
+    })
+};
+
 
 export default profileReducer;

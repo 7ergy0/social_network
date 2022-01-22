@@ -3,9 +3,10 @@ import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer from "./users-reducer";
-import authReducer from "./authReducer";
+import authReducer from "./auth-Reducer";
 import thunkMiddleware from "redux-thunk";
 import { reducer as formReducer } from 'redux-form'
+import appReducer from "./app-reducer";
 
 
 
@@ -18,7 +19,8 @@ export const rootReducers=combineReducers({
     sidebarPage:sidebarReducer,
     usersPage:usersReducer,
     auth:authReducer,
-    form:formReducer
+    form:formReducer,
+    app:appReducer
 })
 
 export type RootStateType=ReturnType<typeof rootReducers>

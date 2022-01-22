@@ -13,7 +13,7 @@ import {
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {compose} from "@reduxjs/toolkit";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+
 
 
 
@@ -116,5 +116,5 @@ let mapStateToProps = (state: RootStateType): mapStateToPropsType => {
 //     }
 
 }
-export default compose<ComponentType>(withAuthRedirect,connect(mapStateToProps,
+export default compose<ComponentType>(connect(mapStateToProps,
     {follow,unfollow,setCurrentPage,toggleIsFollowing,getUsers}))(UserContainer);

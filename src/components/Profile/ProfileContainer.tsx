@@ -28,6 +28,9 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.authUserId;
+            if(!userId){
+                this.props.history.push('/login')
+            }
         }
         // profileApi.defaultUser(userId).then(data=> {
         //     this.props.setUserProfile(data)

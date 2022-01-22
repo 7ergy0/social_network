@@ -7,7 +7,7 @@ import {Redirect} from "react-router-dom";
 import s from '../../common/formsControls/FormsControls.module.css'
 import {RootStateType} from "../../redux/redux-store";
 import {compose} from "@reduxjs/toolkit";
-import {loginProfile} from "../../redux/authReducer";
+import {loginProfile} from "../../redux/auth-Reducer";
 
 
 type LoginFormType={

@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import {readFile} from "fs";
 
 
 
@@ -30,6 +31,10 @@ export const profileApi={
     },
     updateStatus(status:string){
         return instant.put('profile/status',{status:status})
+            .then(response=>response.data)
+    },
+    setPhoto(image:any){
+        return instant.put('profile/photo',{image:image})
             .then(response=>response.data)
     }
 };

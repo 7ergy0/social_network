@@ -16,7 +16,7 @@ let initialState={
 };
 type initialStateType=typeof initialState
 
-const authReducer=(state:initialStateType=initialState,action:ActionsType):initialStateType=>{
+export const authReducer=(state:initialStateType=initialState,action:ActionsType):initialStateType=>{
     switch (action.type) {
         case "SET_AUTH_DATA":
             return {
@@ -34,8 +34,7 @@ export const setAuthData=(userId:null,email:null,login:null,isAuth:boolean)=>({t
 
 export const getAuthUserData=()=>(dispatch:Dispatch)=>{
 
-    authApi.getMyProfile().then(data => {
-        console.log(data)
+   return  authApi.getMyProfile().then(data => {
         if (data.resultCode === 0) {
             dispatch(setAuthData(data.data.id,data.data.email,data.data.login,true));
         }
@@ -44,7 +43,6 @@ export const getAuthUserData=()=>(dispatch:Dispatch)=>{
 export const loginProfile=(email:string,password:string,rememberMe:boolean)=>(dispatch:Dispatch)=>{
 
     authApi.login(email,password,rememberMe).then(data=>{
-        console.log('login',data)
         if(data.resultCode === 0){
            dispatch<any>(getAuthUserData())
         }else{
