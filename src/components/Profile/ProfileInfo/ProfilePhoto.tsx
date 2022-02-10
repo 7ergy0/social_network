@@ -1,4 +1,6 @@
 import React from "react";
+import {getPhotoProfile} from "../../../redux/profile-reducer";
+import users from '../../../assets/images/users.png'
 
 
 
@@ -32,9 +34,7 @@ class ProfilePhoto extends React.Component<any, ProfilePhotoType> {
         })
         this.props.updateStatusProfile(this.state.image)
     };
-    setPhoto=()=>{
 
-    }
     // onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
     //     this.setState({
     //         status: e.currentTarget.value
@@ -56,7 +56,7 @@ class ProfilePhoto extends React.Component<any, ProfilePhotoType> {
                 {
                     this.state.editMode
 
-                        ? <button onClick={this.setPhoto}  style={{width: '50px', height: '50px'}}>load photo</button>
+                        ? <button style={{width: '50px', height: '50px'}}>load photo</button>
                         : <img src={this.props.image} onDoubleClick={this.activeEditMode}
                                style={{width: '50px', height: '50px'}}/>}
 

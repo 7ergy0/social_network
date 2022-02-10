@@ -84,9 +84,11 @@ export const updateStatusProfile=(status:string)=>(dispatch:Dispatch)=>{
     })
 };
 export const getPhotoProfile=(image:any)=>(dispatch:Dispatch)=>{
+    debugger
     profileApi.setPhoto(image).then(data=>{
         if( data.data.resultCode===0 ){
             dispatch(setPhotoProfile(image))
+            dispatch(setUserProfile(data))
         }
     })
 };

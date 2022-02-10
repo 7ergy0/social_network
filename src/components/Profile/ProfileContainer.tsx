@@ -2,7 +2,7 @@ import React, {ComponentType} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
-    defaultProfile,
+    defaultProfile, getPhotoProfile,
     getStatusProfile,
     updateStatusProfile
 } from "../../redux/profile-reducer";
@@ -37,22 +37,14 @@ class ProfileContainer extends React.Component<any, ProfileContainerType> {
         // });
         this.props.defaultProfile(userId);
         this.props.getStatusProfile(userId);
-
     }
-
     render() {
-
         return (
-
             <Profile {...this.props} profile={this.props.profile}
                      status={this.props.status} updateStatusProfile={this.props.updateStatusProfile}/>
         )
     }
-
-
 }
-
-
 let mapStateToProps = (state: RootStateType): mapsStateToPropsType => ({
     profile: state.profilePage.profile,
     status:state.profilePage.status,
@@ -61,4 +53,4 @@ let mapStateToProps = (state: RootStateType): mapsStateToPropsType => ({
 
 });
 
-export default compose<ComponentType>(connect(mapStateToProps, {defaultProfile,getStatusProfile,updateStatusProfile}),withRouter,withAuthRedirect)(ProfileContainer);
+export default compose<ComponentType>(connect(mapStateToProps, {defaultProfile,getStatusProfile,updateStatusProfile,getPhotoProfile}),withRouter,withAuthRedirect)(ProfileContainer);
