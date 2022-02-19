@@ -1,6 +1,5 @@
 import * as axios from "axios";
-
-
+import {ProfileType} from "../types";
 
 
 
@@ -12,8 +11,6 @@ const instant=axios.default.create({
     }
 })
 
-
-
 export const usersApi={
     getUsers(currentPage:number,pageSize:number){
         return instant.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -22,7 +19,7 @@ export const usersApi={
 };
 export const profileApi={
     defaultUser(userId:number){
-        return instant.get('profile/'+userId)
+        return instant.get<ProfileType>('profile/'+userId)
             .then(response=>response.data)
     },
     getStatus(userId:number){
@@ -30,7 +27,7 @@ export const profileApi={
             .then(response=>response.data)
     },
     updateStatus(status:string){
-        return instant.put('profile/status',{status:status})
+        return instant.put<ProfileStatusType>('profile/status',{status:status})
             .then(response=>response.data)
     },
     setPhoto(image:any){
@@ -40,15 +37,15 @@ export const profileApi={
 };
 export const authApi={
     getMyProfile(){
-        return instant.get('auth/me')
+        return instant.get<AuthMeType>('auth/me')
             .then(response=>response.data)
     },
     login(email:string,password:string,rememberMe:boolean){
-        return instant.post('auth/login',{email,password,rememberMe})
+        return instant.post<LoginLogoutType>('auth/login',{email,password,rememberMe})
             .then(response=>response.data)
     },
     logout(){
-        return instant.delete('auth/login')
+        return instant.delete<LoginLogoutType>('auth/login')
             .then(response=>response.data)
     }
 };
@@ -62,5 +59,39 @@ export const followApi={
             .then(response=>response.data)
     }
 };
+export enum ResultCode{
+    success=0,
+    error=1
+}
 
+type ProfileStatusType<D={}>={
+    resultCode: ResultCode
+    messages: string[]
+    data: D
 
+}
+type UpdatePhotoType={
+    data:{
+        small: string
+        large: string
+    }
+    resultCode:ResultCode
+    messages: string[]
+}
+type DataType={
+    id: number
+    email: string
+    login: string
+}
+type AuthMeType={
+    data: DataType
+    resultCode: ResultCode
+    messages: string[]
+
+}
+type LoginLogoutType={
+    resultCode: ResultCode
+    messages: string[]
+    data: DataType
+
+}

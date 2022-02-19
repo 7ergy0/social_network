@@ -1,6 +1,5 @@
 import React from "react";
-import {getPhotoProfile} from "../../../redux/profile-reducer";
-import users from '../../../assets/images/users.png'
+
 
 
 

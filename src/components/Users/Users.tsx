@@ -2,22 +2,23 @@ import React from "react";
 import s from "./Users.module.css";
 import usersPhoto from "../../assets/images/users.png";
 import {NavLink} from "react-router-dom";
+import {UsersType} from "../../types";
 
 
 
 
-type UsersType = {
+type UsersPropsType = {
     totalUsersCount: number
     pageSize: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    users: []
+    users: UsersType[]
     unfollow: (id: number) => void
     follow: (id: number) => void
-    followingInProgress:[]
+    followingInProgress:number[]
 }
 
-function Users(props: UsersType) {
+function Users(props: UsersPropsType) {
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
     for (let i = 1; i <= pageCount; i++)

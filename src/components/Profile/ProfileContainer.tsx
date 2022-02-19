@@ -16,7 +16,7 @@ import { compose } from "@reduxjs/toolkit";
 type mapsStateToPropsType = {
     profile: any
     status:string
-    authUserId:null
+    authUserId:number|null
     isAuth:boolean
 }
 

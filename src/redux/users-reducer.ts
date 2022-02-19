@@ -1,6 +1,7 @@
 import {ActionsType} from "./store";
 import {followApi, usersApi} from "../api/Api";
 import {Dispatch} from "@reduxjs/toolkit";
+import {UsersType} from "../types";
 
 
 const FOLLOW = "FOLLOW"
@@ -11,19 +12,8 @@ const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
 const TOGGLE_IS_FOLLOWING = "TOGGLE-IS-FOLLOWING"
 
-export type UsersType = {
-    id: number
-    photo: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: UserLocationType
 
-}
-type UserLocationType = {
-    city: string,
-    country: string
-}
+
 
 export type InitialStateType = typeof initialState
 
@@ -103,7 +93,7 @@ export const toggleIsFollowing = (isFetching: boolean, userId: number) => ({
     userId
 }) as const
 
-export const requestUsers = (page: number, pageSize: number) => (dispatch: Dispatch) => {
+export const requestUsers = (page: number, pageSize: number) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
     usersApi.getUsers(page, pageSize).then(data => {

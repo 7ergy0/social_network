@@ -1,6 +1,8 @@
 import {ActionsType} from "./store";
-import {profileApi} from "../api/Api";
+import {profileApi, ResultCode} from "../api/Api";
 import {Dispatch} from "@reduxjs/toolkit";
+import {PhotosType, PostType, ProfileType} from "../types";
+import {RootThunkTypes} from "./redux-store";
 
 const ADD_POST = "ADD-POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
@@ -14,10 +16,10 @@ let initialState={
             {id: 1, message: "How are you", likesCount: 12},
             {id: 2, message: "It' my first post", likesCount: 34},
             {id: 3, message: "How are you?", likesCount: 32}
-        ],
-    profile:null,
+        ] as Array<PostType>,
+    profile:null as ProfileType|null,
     status:"",
-    image:null
+    image:null as PhotosType|null
     };
 export type initialStateType=typeof initialState
 
@@ -61,7 +63,7 @@ const profileReducer = (state:initialStateType=initialState, action: ActionsType
 }
 export const addPostActionCreator = (addMyPost:string) =>({type: ADD_POST,addMyPost}) as const
 //export const updateNewPostTextActionCreator = (text: string)=>({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
-export const setUserProfile=(profile:null)=>({type:SET_USER_PROFILE,profile}) as const
+export const setUserProfile=(profile:ProfileType)=>({type:SET_USER_PROFILE,profile}) as const
 export const setStatusProfile=(status:string)=>({type:SET_STATUS_PROFILE,status}) as const
 export const setPhotoProfile=(image:any)=>({type:SET_PHOTO_PROFILE,image}) as const
 
@@ -78,15 +80,15 @@ export const getStatusProfile=(userId:number)=>(dispatch:Dispatch)=>{
 };
 export const updateStatusProfile=(status:string)=>(dispatch:Dispatch)=>{
     profileApi.updateStatus(status).then(data=>{
-        if( data.data.resultCode===0 ){
+        if( data.resultCode===ResultCode.success ){
             dispatch(setStatusProfile(status))
         }
     })
 };
-export const getPhotoProfile=(image:any)=>(dispatch:Dispatch)=>{
+export const getPhotoProfile=(image:any):RootThunkTypes=>(dispatch)=>{
     debugger
     profileApi.setPhoto(image).then(data=>{
-        if( data.data.resultCode===0 ){
+        if( data.resultCode===ResultCode.success ){
             dispatch(setPhotoProfile(image))
             dispatch(setUserProfile(data))
         }

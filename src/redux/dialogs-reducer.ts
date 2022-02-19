@@ -4,19 +4,28 @@ import {ActionsType} from "./store";
 const SEND_MESSAGE = "SEND-MESSAGE"
 //const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY"
 
+type MessageType={
+    id:number
+    message:string
+}
+type DialogsType={
+    id:number
+    name:string
+}
+
 const initialState= {
         messagesData: [
             {id: 1, message: "Hi!"},
             {id: 2, message: "How are you?!"},
             {id: 3, message: "Hi!"},
             {id: 4, message: "Hi!"}
-        ],
+        ] as Array<MessageType>,
         dialogsData: [
             {id: 1, name: "Sergey"},
             {id: 2, name: "Alexey"},
             {id: 3, name: "Aleksandr"},
             {id: 4, name: "Olga"}
-        ]
+        ] as Array<DialogsType>
     };
 
 export type initialDialogsPageType=typeof initialState
