@@ -1,0 +1,45 @@
+import React, {ChangeEvent, useState} from "react";
+
+
+type ProfileStatusPropsType = {
+    status:string
+    updateStatusProfile:(newStatus:string)=>void
+}
+
+
+function ProfileStatusWithHooks(props:ProfileStatusPropsType){
+
+    const [editMode,setEditMode]=useState(false)
+    const [status,setStatus]=useState(props.status)
+
+
+   const activeEditMode = () => {
+        setEditMode(true)
+    };
+
+    const activeViewMode = () => {
+       setEditMode(false)
+        props.updateStatusProfile(status)
+    };
+    const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.currentTarget.value)
+    };
+
+        return (
+            <div>
+                {
+                    editMode
+
+                        ? <input value={status} onChange={onChangeStatus} onBlur={activeViewMode}
+                                 autoFocus/>
+                        : <span onDoubleClick={activeEditMode}>{props.status || "-----"}</span>
+                }
+
+
+            </div>
+        )
+
+}
+
+export default ProfileStatusWithHooks;
+
