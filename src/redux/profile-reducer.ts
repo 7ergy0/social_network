@@ -5,6 +5,7 @@ import {PhotosType, PostType, ProfileType} from "../types";
 import {RootThunkTypes} from "./redux-store";
 
 const ADD_POST = "ADD-POST"
+const DELETE_POST = "DELETE-POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const SET_USER_PROFILE="SET-USER-PROFILE"
 const SET_STATUS_PROFILE="SET-STATUS-PROFILE"
@@ -29,6 +30,8 @@ const profileReducer = (state:initialStateType=initialState, action: ActionsType
             let newPost = {id: 5, message: action.addMyPost, likesCount: 0}
             return {...state,
                 postsData:[...state.postsData,newPost],};
+        case DELETE_POST:
+            return {...state,postsData: state.postsData.filter(f=>f.id!==action.postId)}
 
         //-------------Рефакторинг------------------
             // let newPost = {id: 5, message: state.newPostText, likesCount: 0};
@@ -62,6 +65,7 @@ const profileReducer = (state:initialStateType=initialState, action: ActionsType
 
 }
 export const addPostActionCreator = (addMyPost:string) =>({type: ADD_POST,addMyPost}) as const
+export const deletePostActionCreator = (postId:number) =>({type: DELETE_POST,postId}) as const
 //export const updateNewPostTextActionCreator = (text: string)=>({type: UPDATE_NEW_POST_TEXT, newText: text}) as const
 export const setUserProfile=(profile:ProfileType)=>({type:SET_USER_PROFILE,profile}) as const
 export const setStatusProfile=(status:string)=>({type:SET_STATUS_PROFILE,status}) as const
