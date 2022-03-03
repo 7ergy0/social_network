@@ -6,7 +6,7 @@ import {stopSubmit} from "redux-form";
 import { RootThunkTypes} from "./redux-store";
 
 
-const SET_AUTH_DATA="SET_AUTH_DATA"
+const SET_AUTH_DATA="auth/SET_AUTH_DATA"
 
 
 let initialState={
@@ -20,7 +20,7 @@ type initialStateType=typeof initialState
 
 export const authReducer=(state:initialStateType=initialState,action:ActionsType):initialStateType=>{
     switch (action.type) {
-        case "SET_AUTH_DATA":
+        case SET_AUTH_DATA:
             return {
                 ...state,
                 ...action.payload
@@ -34,16 +34,15 @@ export const authReducer=(state:initialStateType=initialState,action:ActionsType
 
 export const setAuthData=(userId:number|null,email:string|null,login:string|null,isAuth:boolean)=>({type:SET_AUTH_DATA,payload:{userId,email,login,isAuth}}) as const
 
-export const getAuthUserData=()=>(dispatch:Dispatch)=>{
+export const getAuthUserData=()=>async (dispatch:Dispatch)=>{
 
-   return  authApi.getMyProfile().then(data => {
+   let data=await authApi.getMyProfile();
         if (data.resultCode === ResultCode.success) {
             dispatch(setAuthData(data.data.id,data.data.email,data.data.login,true));
         }
-    })
 };
 export const loginProfile=(email:string,password:string,rememberMe:boolean):RootThunkTypes=>async (dispatch)=>{
-   const data=await authApi.login(email,password,rememberMe)
+   let data=await authApi.login(email,password,rememberMe)
         if(data.resultCode === 0){
            dispatch(getAuthUserData())
         }else{
@@ -52,12 +51,11 @@ export const loginProfile=(email:string,password:string,rememberMe:boolean):Root
         }
 
 }
-export const logoutProfile=()=>(dispatch:Dispatch)=>{
-    authApi.logout().then(data=>{
+export const logoutProfile=()=>async (dispatch:Dispatch)=>{
+    let data=await authApi.logout()
         if(data.resultCode === 0){
            dispatch(setAuthData(null,null,null,false))
         }
-    })
 }
 export default authReducer;
 

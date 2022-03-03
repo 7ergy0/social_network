@@ -1,15 +1,13 @@
 import {ActionsType} from "./store";
 import {profileApi, ResultCode} from "../api/Api";
-import {Dispatch} from "@reduxjs/toolkit";
 import {PhotosType, PostType, ProfileType} from "../types";
 import {RootThunkTypes} from "./redux-store";
-
-const ADD_POST = "ADD-POST"
-const DELETE_POST = "DELETE-POST"
+const ADD_POST = "profile/ADD-POST"
+const DELETE_POST = "profile/DELETE-POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-const SET_USER_PROFILE="SET-USER-PROFILE"
-const SET_STATUS_PROFILE="SET-STATUS-PROFILE"
-const SET_PHOTO_PROFILE="SET-PHOTO-PROFILE"
+const SET_USER_PROFILE="profile/SET-USER-PROFILE"
+const SET_STATUS_PROFILE="profile/SET-STATUS-PROFILE"
+const SET_PHOTO_PROFILE="profile/SET-PHOTO-PROFILE"
 
 
 let initialState={
@@ -54,7 +52,7 @@ const profileReducer = (state:initialStateType=initialState, action: ActionsType
         case SET_STATUS_PROFILE:
             return {...state,
             status: action.status};
-        case "SET-PHOTO-PROFILE":
+        case SET_PHOTO_PROFILE:
             return {...state,
             image:action.image}
 
@@ -72,31 +70,26 @@ export const setStatusProfile=(status:string)=>({type:SET_STATUS_PROFILE,status}
 export const setPhotoProfile=(image:any)=>({type:SET_PHOTO_PROFILE,image}) as const
 
 
-export const defaultProfile=(userId:number)=>(dispatch:Dispatch)=>{
-    profileApi.defaultUser(userId).then(data=> {
+export const defaultProfile=(userId:number):RootThunkTypes=>async (dispatch)=>{
+    let data=await profileApi.defaultUser(userId);
         dispatch(setUserProfile(data));
-    });
 };
-export const getStatusProfile=(userId:number)=>(dispatch:Dispatch)=>{
-    profileApi.getStatus(userId).then(data=>{
+export const getStatusProfile=(userId:number):RootThunkTypes=>async (dispatch)=>{
+    let data= await profileApi.getStatus(userId);
         dispatch(setStatusProfile(data))
-    })
 };
-export const updateStatusProfile=(status:string)=>(dispatch:Dispatch)=>{
-    profileApi.updateStatus(status).then(data=>{
+export const updateStatusProfile=(status:string):RootThunkTypes=>async (dispatch)=>{
+    let data=await profileApi.updateStatus(status);
         if( data.resultCode===ResultCode.success ){
             dispatch(setStatusProfile(status))
         }
-    })
 };
-export const getPhotoProfile=(image:any):RootThunkTypes=>(dispatch)=>{
-    debugger
-    profileApi.setPhoto(image).then(data=>{
+export const getPhotoProfile=(image:any):RootThunkTypes=>async (dispatch)=>{
+    let data=await profileApi.setPhoto(image);
         if( data.resultCode===ResultCode.success ){
             dispatch(setPhotoProfile(image))
             dispatch(setUserProfile(data))
         }
-    })
 };
 
 
