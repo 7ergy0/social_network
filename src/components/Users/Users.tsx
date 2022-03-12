@@ -18,7 +18,7 @@ type UsersPropsType = {
 function Users({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}: UsersPropsType) {
 
     return <div>
-        <Pagination totalUsersCount={totalUsersCount}
+        <Pagination totalItemsCount={totalUsersCount}
                     pageSize={pageSize}
                     currentPage={currentPage}
                     onPageChanged={onPageChanged}/>

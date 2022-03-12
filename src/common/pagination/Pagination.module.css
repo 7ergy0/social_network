@@ -1,8 +1,17 @@
+.paginator {
+    display: flex;
+    justify-content: center;
+}
+
 .selectedPage {
+    padding: 5px;
     font-weight: bold;
+    border: 1px gold solid;
+    border-radius: 50%;
 
 }
 
 .pages {
+padding: 5px;
     cursor: pointer;
 }
