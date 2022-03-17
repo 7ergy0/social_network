@@ -1,6 +1,6 @@
 import {ActionsType} from "./store";
 import {profileApi, ResultCode} from "../api/Api";
-import {PhotosType, PostType, ProfileType} from "../types";
+import {PostType, ProfileType} from "../types";
 import {RootThunkTypes} from "./redux-store";
 const ADD_POST = "profile/ADD-POST"
 const DELETE_POST = "profile/DELETE-POST"
@@ -18,11 +18,10 @@ let initialState={
         ] as Array<PostType>,
     profile:null as ProfileType|null,
     status:"",
-    image:null as PhotosType|null
     };
 export type initialStateType=typeof initialState
 
-const profileReducer = (state:initialStateType=initialState, action: ActionsType):initialStateType=> {
+const profileReducer = (state=initialState, action: ActionsType):initialStateType=> {
     switch (action.type) {
         case ADD_POST:
             let newPost = {id: 5, message: action.addMyPost, likesCount: 0}
@@ -54,7 +53,7 @@ const profileReducer = (state:initialStateType=initialState, action: ActionsType
             status: action.status};
         case SET_PHOTO_PROFILE:
             return {...state,
-            image:action.image}
+                profile:action.image}
 
         default:
             return state
@@ -84,13 +83,11 @@ export const updateStatusProfile=(status:string):RootThunkTypes=>async (dispatch
             dispatch(setStatusProfile(status))
         }
 };
-export const getPhotoProfile=(image:any):RootThunkTypes=>async (dispatch)=>{
+export const savePhotoProfile=(image:any):RootThunkTypes=>async (dispatch)=>{
     let data=await profileApi.setPhoto(image);
         if( data.resultCode===ResultCode.success ){
-            dispatch(setPhotoProfile(image))
-            dispatch(setUserProfile(data))
+            dispatch(setPhotoProfile(data.data.large))
         }
 };
-
 
 export default profileReducer;

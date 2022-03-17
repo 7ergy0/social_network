@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, {ChangeEvent} from "react";
+import s from "./ProfilePhoto.module.css"
+import userPhoto from "../../../assets/images/users.png"
 
 
 
@@ -7,6 +8,7 @@ type ProfilePhotoType = {
     editMode: boolean
     status: string
     image: any
+    isOwner: any
 
 
 }
@@ -16,24 +18,24 @@ class ProfilePhoto extends React.Component<any, ProfilePhotoType> {
     state: any = {
         editMode: false,
         image: this.props.image,
-
-
     }
-
     activeEditMode = () => {
         this.setState({
             editMode: true
         })
-
     };
-
     activeViewMode = () => {
         this.setState({
             editMode: false
         })
         this.props.updateStatusProfile(this.state.image)
-    };
 
+    };
+    onSavePhotoProfile=(e:ChangeEvent<HTMLInputElement> )=>{
+        if(e.currentTarget.files){
+      this.props.savePhotoProfile(e.currentTarget.files[0])
+        }
+    }
     // onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
     //     this.setState({
     //         status: e.currentTarget.value
@@ -51,16 +53,11 @@ class ProfilePhoto extends React.Component<any, ProfilePhotoType> {
 
     render() {
         return (
-            <div>
-                {
-                    this.state.editMode
-
-                        ? <button style={{width: '50px', height: '50px'}}>load photo</button>
-                        : <img src={this.props.image} onDoubleClick={this.activeEditMode}
-                               style={{width: '50px', height: '50px'}}/>}
-
-                {/*// : <span onDoubleClick={this.activeEditMode}>{this.props.image || "-----"}</span>*/}
-
+            <div className={s.photo}>
+                { this.state.editMode && this.props.isOwner
+                ? <input type={"file"} onChange={this.onSavePhotoProfile}/>
+                :<span><img src={this.props.image || userPhoto } onDoubleClick={this.activeEditMode}
+                    /></span>}
 
             </div>
         )

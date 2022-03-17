@@ -1,5 +1,5 @@
 import * as axios from "axios";
-import {ProfileType} from "../types";
+import {PhotosType, ProfileType} from "../types";
 
 
 
@@ -31,7 +31,14 @@ export const profileApi={
             .then(response=>response.data)
     },
     setPhoto(image:any){
-        return instant.put('profile/photo',{image:image})
+        let formData=new FormData();
+        formData.append('file', image);
+        return instant.put<UpdatePhotoType>('profile/photo',formData,{
+            headers:{
+
+                'Content-Type': `multipart/form-data; boundary=${image._boundary}`,
+            }
+        })
             .then(response=>response.data)
     }
 };
@@ -71,10 +78,7 @@ type ProfileStatusType<D={}>={
 
 }
 type UpdatePhotoType={
-    data:{
-        small: string
-        large: string
-    }
+    data:PhotosType
     resultCode:ResultCode
     messages: string[]
 }
