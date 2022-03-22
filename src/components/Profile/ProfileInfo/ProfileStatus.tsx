@@ -49,7 +49,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, StateType> {
     render() {
         return (
             <div>
-                {
+               {
                     this.state.editMode
 
                         ? <input value={this.state.status} onChange={this.onChangeStatus} onBlur={this.activeViewMode}

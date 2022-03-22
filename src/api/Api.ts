@@ -40,6 +40,10 @@ export const profileApi={
             }
         })
             .then(response=>response.data)
+    },
+    setProfile(profile:ProfileType){
+        return instant.put<ProfileStatusType>('profile',profile)
+            .then(response=>response.data)
     }
 };
 export const authApi={

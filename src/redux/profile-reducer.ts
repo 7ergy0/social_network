@@ -2,12 +2,14 @@ import {ActionsType} from "./store";
 import {profileApi, ResultCode} from "../api/Api";
 import {PostType, ProfileType} from "../types";
 import {RootThunkTypes} from "./redux-store";
+import {stopSubmit} from "redux-form";
 const ADD_POST = "profile/ADD-POST"
 const DELETE_POST = "profile/DELETE-POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const SET_USER_PROFILE="profile/SET-USER-PROFILE"
 const SET_STATUS_PROFILE="profile/SET-STATUS-PROFILE"
 const SET_PHOTO_PROFILE="profile/SET-PHOTO-PROFILE"
+const SET_EDIT_PROFILE="profile/SET-EDIT-PROFILE"
 
 
 let initialState={
@@ -54,6 +56,9 @@ const profileReducer = (state=initialState, action: ActionsType):initialStateTyp
         case SET_PHOTO_PROFILE:
             return {...state,
                 profile:action.image}
+        case SET_EDIT_PROFILE:
+            return {...state,
+            profile: action.profile}
 
         default:
             return state
@@ -67,6 +72,7 @@ export const deletePostActionCreator = (postId:number) =>({type: DELETE_POST,pos
 export const setUserProfile=(profile:ProfileType)=>({type:SET_USER_PROFILE,profile}) as const
 export const setStatusProfile=(status:string)=>({type:SET_STATUS_PROFILE,status}) as const
 export const setPhotoProfile=(image:any)=>({type:SET_PHOTO_PROFILE,image}) as const
+export const setEditProfile=(profile:ProfileType)=>({type:SET_EDIT_PROFILE,profile}) as const
 
 
 export const defaultProfile=(userId:number):RootThunkTypes=>async (dispatch)=>{
@@ -87,6 +93,16 @@ export const savePhotoProfile=(image:any):RootThunkTypes=>async (dispatch)=>{
     let data=await profileApi.setPhoto(image);
         if( data.resultCode===ResultCode.success ){
             dispatch(setPhotoProfile(data.data.large))
+        }
+};
+export const saveProfile=(profile:ProfileType):RootThunkTypes=>async (dispatch,getState)=>{
+   const userId:any=getState().auth.userId
+    const data=await profileApi.setProfile(profile);
+        if( data.resultCode===ResultCode.success ){
+            dispatch(defaultProfile(userId))
+        }else {
+            dispatch(stopSubmit("contacts",{_error:data.messages[0]}))
+            // dispatch(setEditProfile(data.data))
         }
 };
 

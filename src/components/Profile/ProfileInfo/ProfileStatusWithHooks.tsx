@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {log} from "util";
 
 
 type ProfileStatusPropsType = {
@@ -38,7 +37,7 @@ const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
 
                         ? <input value={status} onChange={onChangeStatus} onBlur={activeViewMode}
                                  autoFocus/>
-                        : <span onDoubleClick={activeEditMode}>{props.status || "-----"}</span>
+                        : <span onDoubleClick={activeEditMode}><b>Status:</b> {props.status || "-----"}</span>
                 }
 
 
