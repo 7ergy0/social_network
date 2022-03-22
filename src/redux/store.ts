@@ -12,7 +12,7 @@ import {
     toggleIsFetching, toggleIsFollowing,
     unfollowSuccess
 } from "./users-reducer";
-import {setAuthData} from "./auth-Reducer";
+import {setAuthData, setCaptchaUrl} from "./auth-Reducer";
 import store from "./redux-store";
 import {initializedSuccess} from "./app-reducer";
 
@@ -76,6 +76,7 @@ export type ActionsType =
     | ReturnType<typeof setPhotoProfile>
     | ReturnType<typeof deletePostActionCreator>
     | ReturnType<typeof setEditProfile>
+    | ReturnType<typeof setCaptchaUrl>
 
 
 // let store= {

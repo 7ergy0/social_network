@@ -9,14 +9,19 @@ import {RootStateType} from "../../redux/redux-store";
 import {compose} from "@reduxjs/toolkit";
 import {loginProfile} from "../../redux/auth-Reducer";
 
-
+type CaptchaUrlType={
+    captchaUrl:any
+}
 type LoginFormType={
     email:string
     password:string
     rememberMe:boolean
+    captchaUrl:any
+
 }
 
-function LoginForm(props:InjectedFormProps<LoginFormType>){
+function LoginForm({captchaUrl,...props}:CaptchaUrlType & InjectedFormProps<LoginFormType,CaptchaUrlType>){
+
     const {handleSubmit}=props
     return(
         <form onSubmit={handleSubmit}>
@@ -29,6 +34,9 @@ function LoginForm(props:InjectedFormProps<LoginFormType>){
             <div>
                 <Field type={'checkbox'} name={'rememberMe'} component={Input}/>remember me
             </div>
+
+            {captchaUrl && <img src={captchaUrl}/>}
+            {captchaUrl && <Field name={"captcha"} component={"input"} placeholder={"Symbols from image"} />}
             {
                 props.error && <div className={s.formError}>
                     {props.error}
@@ -43,25 +51,27 @@ function LoginForm(props:InjectedFormProps<LoginFormType>){
 
     )
 }
-let LoginReduxForm = reduxForm<LoginFormType>({form: 'login'})(LoginForm)
+let LoginReduxForm = reduxForm<LoginFormType,CaptchaUrlType>({form: 'login'})(LoginForm)
 type mapStateToPropsType={
     isAuth:any
+    captchaUrl:any
     //getAuthUserData:(email:string,password:string,rememberMe:boolean)=>void
 }
 function Login(props:any){
     const onSubmit=(values:LoginFormType)=>{
-        props.loginProfile(values.email,values.password,values.rememberMe)
+        props.loginProfile(values.email,values.password,values.rememberMe,values.captchaUrl)
     }
     if(props.isAuth){
         return <Redirect to={'/profile'}/>
     }
     return <div>
         <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
 
     </div>
 }
 const mapStateToProps=(state:RootStateType):mapStateToPropsType=>({
+    captchaUrl:state.auth.captchaUrl,
     isAuth:state.auth.isAuth
 
 })

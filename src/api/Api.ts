@@ -11,7 +11,12 @@ const instant=axios.default.create({
     }
 })
 
-export const usersApi={
+export const securityApi={
+    getCaptchaUrl(){
+        return instant.get('security/get-captcha-url')
+            .then(response=>response.data)
+    }
+};export const usersApi={
     getUsers(currentPage:number,pageSize:number){
         return instant.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response=>response.data)
@@ -51,8 +56,8 @@ export const authApi={
         return instant.get<AuthMeType>('auth/me')
             .then(response=>response.data)
     },
-    login(email:string,password:string,rememberMe:boolean){
-        return instant.post<LoginLogoutType>('auth/login',{email,password,rememberMe})
+    login(email:string,password:string,rememberMe:boolean,captchaUrl:any){
+        return instant.post<LoginLogoutType>('auth/login',{email,password,rememberMe,captchaUrl})
             .then(response=>response.data)
     },
     logout(){
