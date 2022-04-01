@@ -7,7 +7,7 @@ const instant=axios.default.create({
     withCredentials:true,
     baseURL:'https://social-network.samuraijs.com/api/1.0/',
     headers:{
-        'API-KEY':'d63defdb-0459-40a2-9e7d-c1b6f429e0a6'
+        'API-KEY':'4b750f58-1048-4ae6-9514-873b7e78e720'
     }
 })
 
