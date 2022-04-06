@@ -1,7 +1,12 @@
 .formControl{
 
-}
 
+}
+.formControl input{
+    height: 30px;
+
+    outline: none;
+}
 
 .formControl.error input,
 .formControl.error textarea {

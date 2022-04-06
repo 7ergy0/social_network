@@ -45,8 +45,6 @@ function LoginForm({captchaUrl,...props}:CaptchaUrlType & InjectedFormProps<Logi
             <div>
                 <button>Login</button>
             </div>
-
-
         </form>
 
     )

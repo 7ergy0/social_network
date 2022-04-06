@@ -1,12 +1,20 @@
-.navbar{
+.navbar {
     grid-area: n;
-    background-color: antiquewhite;
-
+    background-color: #9b6c2d;
+    text-align: center;
+    padding: 10px;
 }
-.item a {
+
+.item {
+    font-size: x-large;
+
+    padding: 15px;
+}
+.item a{
     color: white;
     text-decoration: none;
 }
-.item a.activeLink{
+
+.item a.activeLink {
     color: #20bb56;
 }

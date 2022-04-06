@@ -1,15 +1,19 @@
 .header{
     grid-area: h;
-    background-color: aquamarine;
+    background-color: #33b78b;
 
 
 }
 .header img{
-    width: 50px;
+    width: 70px;
+
 
 
 }
 .loginBlock{
+    font-size: larger;
+    font-weight: bold;
+    padding:20px;
     float: right;
 
 }
