@@ -5,7 +5,7 @@ import {PhotosType, ProfileType} from "../types";
 
 const instant=axios.default.create({
     withCredentials:true,
-    baseURL:' https://node-js-localhost.herokuapp.com',
+    baseURL:'https://social-network.samuraijs.com/api/1.0/',
     headers:{
         'API-KEY':'61907893-90f0-49c6-affa-c8246b74a48d'
     }
@@ -13,32 +13,32 @@ const instant=axios.default.create({
 
 export const securityApi={
     getCaptchaUrl(){
-        return instant.get('https://social-network.samuraijs.com/api/1.0/security/get-captcha-url')
+        return instant.get('security/get-captcha-url')
             .then(response=>response.data)
     }
 };export const usersApi={
     getUsers(currentPage:number,pageSize:number){
-        return instant.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        return instant.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response=>response.data)
     }
 };
 export const profileApi={
     defaultUser(userId:number){
-        return instant.get<ProfileType>('https://social-network.samuraijs.com/api/1.0/profile/'+userId)
+        return instant.get<ProfileType>('profile/'+userId)
             .then(response=>response.data)
     },
     getStatus(userId:number){
-        return instant.get('https://social-network.samuraijs.com/api/1.0/profile/status/'+userId)
+        return instant.get('profile/status/'+userId)
             .then(response=>response.data)
     },
     updateStatus(status:string){
-        return instant.put<ProfileStatusType>('https://social-network.samuraijs.com/api/1.0/profile/status',{status:status})
+        return instant.put<ProfileStatusType>('profile/status',{status:status})
             .then(response=>response.data)
     },
     setPhoto(image:any){
         let formData=new FormData();
         formData.append('file', image);
-        return instant.put<UpdatePhotoType>('https://social-network.samuraijs.com/api/1.0/profile/photo',formData,{
+        return instant.put<UpdatePhotoType>('profile/photo',formData,{
             headers:{
 
                 'Content-Type': `multipart/form-data; boundary=${image._boundary}`,
@@ -47,21 +47,21 @@ export const profileApi={
             .then(response=>response.data)
     },
     setProfile(profile:ProfileType){
-        return instant.put<ProfileStatusType>('https://social-network.samuraijs.com/api/1.0/profile',profile)
+        return instant.put<ProfileStatusType>('profile',profile)
             .then(response=>response.data)
     }
 };
 export const authApi={
     getMyProfile(){
-        return instant.get<AuthMeType>('https://social-network.samuraijs.com/api/1.0/auth/me')
+        return instant.get<AuthMeType>('auth/me')
             .then(response=>response.data)
     },
     login(email:string,password:string,rememberMe:boolean,captchaUrl:any){
-        return instant.post<LoginLogoutType>('https://social-network.samuraijs.com/api/1.0/auth/login',{email,password,rememberMe,captchaUrl})
+        return instant.post<LoginLogoutType>('auth/login',{email,password,rememberMe,captchaUrl})
             .then(response=>response.data)
     },
     logout(){
-        return instant.delete<LoginLogoutType>('https://social-network.samuraijs.com/api/1.0/auth/login')
+        return instant.delete<LoginLogoutType>('auth/login')
             .then(response=>response.data)
     }
 };
