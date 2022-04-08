@@ -25,6 +25,18 @@ function LoginForm({captchaUrl,...props}:CaptchaUrlType & InjectedFormProps<Logi
     const {handleSubmit}=props
     return(
         <form onSubmit={handleSubmit}>
+            <p>
+                To log in get registered <a href={'https://social-network.samuraijs.com/'}
+                                            target={'_blank'}>here</a>
+            </p>
+            <p>
+                or use common test account credentials:
+            </p>
+            <p> Email: free@samuraijs.com
+            </p>
+            <p>
+                Password: free
+            </p>
             <div>
             <Field placeholder={'email'} name={'email'} component={Input} validate={required}/>
             </div>
@@ -57,7 +69,7 @@ type mapStateToPropsType={
 }
 function Login(props:any){
     const onSubmit=(values:LoginFormType)=>{
-        props.loginProfile(values.email,values.password,values.rememberMe,values.captchaUrl)
+        props.loginProfile(values.email.trim(),values.password,values.rememberMe,values.captchaUrl)
     }
     if(props.isAuth){
         return <Redirect to={'/profile'}/>
